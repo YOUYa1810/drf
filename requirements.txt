@@ -3,3 +3,4 @@ djangorestframework~=3.12.2
 pyyaml
 requests
 django-cors-headers
+algoliasearch-django>=2.0,<3.0
