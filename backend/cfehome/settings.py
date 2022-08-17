@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import datetime 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-lp@ca1z(x(f-s%r4_36&&$dt#l-&y$9=r)2$fli4ix6zufn$uj'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = str(os.environ.get('DEBUG')) == '1'
 
 ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS += [os.environ.get('ALLOWED_HOST')]
 
 
 # Application definition
@@ -165,8 +169,8 @@ REST_FRAMEWORK = {
 
 # environment variables -> django-dotenv -> read .env
 ALGOLIA = {
-    'APPLICATION_ID': 'DXHXRZV6JZ',
-    'API_KEY': '',
+    'APPLICATION_ID': os.environ.get('APPLICATION_ID'),
+    'API_KEY': os.environ.get('API_KEY'),
     'INDEX_PREFIX': 'cfe'
 }
 
